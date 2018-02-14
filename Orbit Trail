@@ -1,0 +1,131 @@
+// Orbit Trail.cpp : Defines the entry point for the console application.
+// Orbit Trail is a space-based Oregon Trail game/Dating sim in which players are tasked with escaping Earth in the event
+// of the sun exploding, while also looking stylish.
+
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <Windows.h>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+
+// Function Prototypes
+void displayStartup ();
+void startupMenu();
+string enterName();
+int randomNumberGenerator();
+void shopmenu();
+
+// Global Variables
+string mainCharacter, crew1, crew2, crew3, crew4;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+  	srand(time(NULL));
+  	
+		displayStartup();
+  
+  	cout << "What is your name?" << endl;
+  	mainCharacter = enterName();
+  
+  	cout << "Enter your crew: " << endl;
+  	cout << "1: ";
+  	crew1 = enterName();
+  	cout << "2: ";
+  	crew2 = enterName();
+  	cout << "3: ";
+  	crew3 = enterName();
+ 	  cout << "4: ";
+  	crew4 = enterName();
+  
+  //Starting Area
+  
+  //Random event check
+  //Random event check
+  //Random event check
+  
+  //Checkpoint 1
+    
+  //Random event check
+  //Random event check
+  //Random event check
+  
+  //Checkpoint 2
+  
+  system("pause");
+  
+	return 0;
+}
+
+/***************************************************
+*		This function displays the startup story.			 *
+*			The for loops give the typing effect	 			 *
+***************************************************/
+void displayStartup() 
+{
+	cout << "*****************************************" << endl
+		 << "*                                       *" << endl
+		 << "*        Welcome to Orbit Trail!        *" << endl
+		 << "*                                       *" << endl
+		 << "*****************************************" << endl;
+
+	string intro = "Right now in a galaxy you currently reside in...\n\nThe sun has sustained life on Earth for thousands of years.\nIt is in the process of becoming a raging supergiant on\nthe brink of supernova. Citizens of Earth are encouraged \nto evacuate by any means possible. You and your shipmates\nhave decided the best means of survival would be to\nget to the neighboring Andromeda Galaxy";
+	string dramaticIntro = ".....before it's too late.";
+	
+	for(int i = 0; i < intro.size(); i++) {
+		cout << intro[i];
+		Sleep(50);
+	}
+
+	cout << endl;
+	
+	for(int i = 0; i < dramaticIntro.size(); i++) {
+		cout << dramaticIntro[i];
+		Sleep(200);
+	}
+
+	cout << endl;
+}
+
+/***************************************************
+*			This function will present a general				 *
+*				outline for shop functionality 						 *
+*											...													 *
+***************************************************/
+void shopmenu()
+{
+	
+}
+
+/***************************************************
+*			This function displays the first menu in		 *
+*			which the user can go to shops, select			 *
+*											...													 *
+***************************************************/
+void startupMenu()
+{
+  system("cls");
+  cout << "Before leaving Earth, you should buy supplies and equipment. \n"
+      << "You can purchase anything you need on Amazon. \n";
+  shopmenu();
+}
+
+
+
+//This function asks the user to enter a name and returns it.
+string enterName()
+{
+  string name;
+  getline(cin, name);
+  
+  return name; 
+}
+
+//Generates a random number between 1 and 64
+int randomNumberGenerator()
+{
+	return rand() % 64 + 1;
+}
