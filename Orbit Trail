@@ -60,10 +60,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 
-/***************************************************
-*		This function displays the startup story.			 *
-*			The for loops give the typing effect	 			 *
-***************************************************/
+// This function displays the startup story. It also adds the typing effect.
 void displayStartup() 
 {
 	cout << "*****************************************" << endl
@@ -90,21 +87,13 @@ void displayStartup()
 	cout << endl;
 }
 
-/***************************************************
-*			This function will present a general				 *
-*				outline for shop functionality 						 *
-*											...													 *
-***************************************************/
+// This function will provide a general outline for shop functionality
 void shopmenu()
 {
 	
 }
 
-/***************************************************
-*			This function displays the first menu in		 *
-*			which the user can go to shops, select			 *
-*											...													 *
-***************************************************/
+// This function displays the first menu in which users can shop, etc.
 void startupMenu()
 {
   system("cls");
