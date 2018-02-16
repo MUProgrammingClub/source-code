@@ -1,0 +1,639 @@
+// Orbit Trail.cpp : Defines the entry point for the console application.
+// Orbit Trail is a space-based Oregon Trail game/Dating sim in which players are tasked with escaping Earth in the event
+// of the sun exploding, while also looking stylish.
+
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <Windows.h>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+
+// Function Prototypes
+void displayStartup();
+void startupMenu();
+string enterName();
+int randomNumberGenerator();
+void shopMenu(double&);
+void foodShop(double&);
+void partsShop(double&);
+void gunShop(double&);
+//void firstAidShop(double&);
+
+// Global Variables
+string characters[5];		// Defines array for character names. 0 is main character, 1-4 are crew members.
+double money = 1000;		// Defines default starting money.
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+
+	displayStartup();
+
+	cout << "What is your name?" << endl;
+	characters[0] = enterName();
+
+	cout << "Enter your crew: " << endl;
+	cout << "1: ";
+	characters[1] = enterName();
+	cout << "2: ";
+	characters[2] = enterName();
+	cout << "3: ";
+	characters[3] = enterName();
+	cout << "4: ";
+	characters[4] = enterName();
+
+	startupMenu();
+
+	//Starting Area
+
+	//Random event check
+	//Random event check
+	//Random event check
+
+	//Checkpoint 1
+
+	//Random event check
+	//Random event check
+	//Random event check
+
+	//Checkpoint 2
+
+	system("pause");
+
+	return 0;
+}
+
+
+// This function displays the startup story and adds the typing effect.
+void displayStartup()
+{
+	cout << "*****************************************" << endl
+		 << "*                                       *" << endl
+		 << "*        Welcome to Orbit Trail!        *" << endl
+		 << "*                                       *" << endl
+		 << "*****************************************" << endl;
+
+	string intro = "Right now in a galaxy you currently reside in...\n\nThe sun has sustained life on Earth for thousands of years.\nIt is in the process of becoming a raging supergiant on\nthe brink of supernova. Citizens of Earth are encouraged \nto evacuate by any means possible. You and your shipmates\nhave decided the best means of survival would be to\nget to the neighboring Andromeda Galaxy";
+	string dramaticIntro = ".....before it's too late.";
+
+	for (int i = 0; i < intro.size(); i++) {
+		cout << intro[i];
+		Sleep(1);
+	}
+
+	cout << endl;
+
+	for (int i = 0; i < dramaticIntro.size(); i++) {
+		cout << dramaticIntro[i];
+		Sleep(1);
+	}
+
+	cout << endl;
+}
+
+
+
+// This function will display the first menu in which users can select shops, etc.
+void startupMenu()
+{
+	system("cls");
+	cout << "Before leaving Earth, you should buy supplies and equipment. \n"
+		 << "You can purchase anything you need on Amazon. \n\n";
+	system("pause");
+	shopMenu(money);
+}
+
+
+// This function will provide a general shop outline.
+void shopMenu(double& currency)
+{
+	system("cls");
+	int userChoice = 0;
+
+	cout << "Balance: $" << currency << endl << endl;		// Displays player's current amount of money.
+
+	cout << "Select what you would like to buy:" << endl;
+	cout << "1: Food" << endl;
+	cout << "2: Spare Parts" << endl;
+	cout << "3: Guns and Ammunition" << endl;
+	cout << "4: First Aid" << endl;
+	cout << "5: Exit Shop Menu" << endl;
+
+	cin >> userChoice;
+
+	while (userChoice < 0 || userChoice > 5)
+	{
+		cout << "Enter a valid choice!";
+		cin >> userChoice;
+	}
+
+	switch (userChoice)					// Switch statement that controls what shop the player enters.
+	{
+	case 1:								// Case 1: Food Store
+		foodShop(currency);
+		break;
+	case 2:								// Case 2: Spare Part Store
+		partsShop(currency);
+		break;
+	case 3:								// Case 3: Gun and Ammo Store
+		gunShop(currency);
+		break;
+	case 4:								// Case 4: First Aid Store
+		//firstAidShop(currency);
+		break;
+	case 5:								// Case 5: Exit store menu
+		system("cls");
+		char stayOrLeave;
+		cout << "Once you leave the shops, you will embark on your journey to Andromeda.\n"
+			<< "Make sure you have bought all the supplies you think you'll need!\n"
+			<< "Are you sure you want to leave? (Y/N)\n";
+		cin >> stayOrLeave;
+		
+		if (stayOrLeave == 'Y' || stayOrLeave == 'y')
+			//launch function to start journey
+			cout << "The Journey Begins..." << endl;
+		else if (stayOrLeave == 'N' || stayOrLeave == 'n')
+			shopMenu(currency);
+		else
+		{
+			cout << "Enter a valid choice! (Y/N)" << endl;
+			cin >> stayOrLeave;
+		}
+		//Exit Shop and prompt to start journey. Maybe give a confirmation if sure player is ready to leave?
+		break;
+	}
+
+}
+
+
+// Displays the Default Food Shop Menu
+void foodShop(double& currency)
+{
+	system("cls");
+	int selection = 0;
+	cout << "Current Balance: $" << currency << endl << endl;
+
+	cout << "Welcome to the food store. We specialize in freeze dried foods, guaranteed to satisfy your hunger in space.\n"
+		<< "Be sure to stock up on plenty of food (and holographic meatloaf) before you head out!" << endl << endl;
+
+	cout << "What would you like to buy?" << endl;
+	cout << "1: Freeze Dried Beef....................$4.00" << endl
+		<< "2: Freeze Dried Pot Pie.................$5.00" << endl
+		<< "3: Freeze Dried Soup....................$4.00" << endl
+		<< "4: Freeze Dried Ice Cream...............$3.00" << endl
+		<< "5: Holographic Meatloaf.................$10.00" << endl
+		<< "6: Exit Shop" << endl;
+
+	cin >> selection;
+
+	while (selection < 0 || selection > 6)
+	{
+		cout << "That is not on the menu! Enter a valid choice!" << endl;
+		cin >> selection;
+	}
+
+	// Switch statement controlling food shop choices
+	switch (selection)
+	{
+		// Case 1: Freeze Dried Beef
+	case 1:
+		int amount;
+
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)										// Input validation for amount
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 4.00)) < 0)					// Checks to make sure player has enough money
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 4.00);				// Subtracts price from currency
+
+		foodShop(currency);									// Returns to shop menu with updated balance
+		break;
+
+		// Case 2: Freeze Dried Pot Pie
+	case 2:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 5.00)) < 0)
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 5.00);
+
+		foodShop(currency);
+		break;
+
+		// Case 3: Freeze Dried Soup
+	case 3:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 4.00)) < 0)
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 4.00);
+
+		foodShop(currency);
+		break;
+
+		// Case 4: Freeze Dried Ice Cream
+	case 4:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 3.00)) < 0)
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 3.00);
+
+		foodShop(currency);
+		break;
+
+		// Case 5: Holographic Meatloaf
+	case 5:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 10.00)) < 0)
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 10.00);
+
+		foodShop(currency);
+		break;
+
+		// Case 6: Exit Shop
+	case 6:
+		cout << "Thanks for coming!" << endl;
+		system("pause");
+		shopMenu(currency);
+		break;
+	}
+
+}
+
+
+// This function defines a default parts shop
+void partsShop(double& currency)
+{
+	system("cls");
+	int selection = 0;
+	cout << "Current Balance: $" << currency << endl << endl;
+
+	cout << "Welcome to the parts shop. We sell rocket fuel and raw materials that you'll need to fix your ship on your journey.\n"
+		<< "Also be sure to buy a tool kit if you want to be able to fix certain problems that might occur along the way." << endl << endl;
+
+	cout << "What would you like to buy?" << endl;
+	cout << "1: Rocket Fuel (1 gallon)....................$15.00" << endl
+		 << "2: Scrap Metal...............................$3.00" << endl
+		 << "3: Copper Wire...............................$4.00" << endl
+		 << "4: Tool Kit..................................$10.00" << endl
+		 << "5: Exit Shop" << endl;
+
+	cin >> selection;
+
+	while (selection < 0 || selection > 5)
+	{
+		cout << "Enter a valid choice!" << endl;
+		cin >> selection;
+	}
+
+	// Switch statement controlling parts shop choices.
+	switch (selection)
+	{
+		//Case 1: Rocket Fuel
+	case 1:
+		int amount;
+
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)									// Input validation for amount
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 15.00)) < 0)						// Checks if player has enough money
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 15.00);			// Subtracts price from currency
+
+		partsShop(currency);							// Returns to the shop menu with updated balance
+
+		break;
+
+		// Case 2: Scrap Metal
+	case 2:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 3.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 3.00);
+
+		partsShop(currency);
+
+		break;
+
+		// Case 3: Copper Wire
+	case 3:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 4.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 4.00);
+
+		partsShop(currency);
+
+		break;
+
+		// Case 4: Tool Kit
+	case 4:
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 10.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 10.00);
+
+		partsShop(currency);
+
+		break;
+
+		// Case 5: Exit Shop
+	case 5:
+		cout << "Thanks, come again!" << endl;
+		system("pause");
+		shopMenu(currency);
+		break;
+	}
+
+}
+
+
+// This function displays the default gun shop
+void gunShop(double& currency)
+{
+	system("cls");
+	int selection = 0;
+	cout << "Current Balance: $" << currency << endl << endl;
+
+	cout << "Welcome to the gun shop. Here you can buy weapons and ammunition to use on the way. Those space buffalos won't hunt\n"
+		<< "themselves! Hunting is an important skill so you don't have to rely on stores for your food supply." << endl << endl;
+
+	cout << "What would you like to buy?" << endl;
+	cout << "1: Space Blaster............................$100.00" << endl
+		 << "2: Space Blaster Ammo (12 Shots)............$25.00" << endl
+		 << "3: Space Rifle..............................$200.00" << endl
+		 << "4: Space Rifle Ammo (24 Shots)..............$20.00" << endl
+		 << "5: Beam Sword...............................$50.00" << endl
+		 << "6: Exit Shop" << endl;
+
+	cin >> selection;
+
+	while (selection < 0 || selection > 6)					// Input validation for selection
+	{
+		cout << "Enter a valid choice!" << endl;
+		cin >> selection;
+	}
+
+	// Switch statement controlling gun shop choices.
+	switch (selection)
+	{
+		// Case 1: Space Blaster
+	case 1:
+		int amount;
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)										// Input validation for amount purchased
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+		else if (amount > 1)
+		{
+			cout << "You only need one Space Blaster! Enter again:" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 100.00)) < 0)						// Checks if player has enough money
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 100.00);							// Subtracts price from currency
+
+		gunShop(currency);									// Returns to shop menu with updated balance
+		break;
+
+		// Case 2: Space Blaster Ammo
+	case 2: 
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 25.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 25.00);
+
+		gunShop(currency);
+		break;
+
+		// Case 3: Space Rifle
+	case 3: 
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)										
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+		else if (amount > 1)
+		{
+			cout << "You only need one Space Rifle! Enter again:" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 200.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 200.00);
+
+		gunShop(currency);
+		break;
+
+		// Case 4: Space Rifle Ammo
+	case 4: 
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 20.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 20.00);
+
+		gunShop(currency);
+		break;
+
+		// Case 5: Beam Sword
+	case 5: 
+		cout << "How many would you like?" << endl;
+		cin >> amount;
+
+		if (amount < 0)
+		{
+			cout << "Enter a valid amount!" << endl;
+			cin >> amount;
+		}
+		else if (amount > 1)
+		{
+			cout << "You only need one Beam Sword! Enter again:" << endl;
+			cin >> amount;
+		}
+
+		while ((currency - (amount * 50.00)) < 0)						
+		{
+			cout << "You don't have enough money to buy that! Enter another amount, or if you cannot afford any, enter 0." << endl;
+			cin >> amount;
+		}
+		
+		currency = currency - (amount * 50.00);
+
+		gunShop(currency);
+		break;
+
+		// Case: Exit Shop
+	case 6:
+		cout << "Thanks, good luck on your journey!" << endl;
+		system("pause");
+		shopMenu(currency);
+		break;
+	}
+}
+
+
+
+// This function asks the user to enter a name and returns it.
+string enterName()
+{
+	string name;
+	getline(cin, name);
+
+	return name;
+}
+
+// This function generates a random number between 1 and 64
+int randomNumberGenerator()
+{
+	return rand() % 64 + 1;
+}
+
