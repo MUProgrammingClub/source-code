@@ -16,6 +16,7 @@ using namespace std;
 void displayStartup();
 void startupMenu();
 string enterName();
+void getCrew();
 int randomNumberGenerator();
 void shopMenu(double&);
 void foodShop(double&);
@@ -24,12 +25,21 @@ void gunShop(double&);
 void firstAidShop(double&);
 void checkInventory();
 void stayOrLeave();
+void displayHealth();
 void randomEvent();
+int randomCharacter();
+
+// Prototypes for specific random events
 void spaceRace();
+void zeroGravityIncident();
+void shipRepair();
+
 
 // Global Variables
-string characters[5];		// Defines array for character names. 0 is main character, 1-4 are crew members.
-int characterHP[5] = { 10, 10, 10, 10, 10 };		// Defines amount of health for each character.
+const int CREW_MEMBERS = 5;
+string characters[CREW_MEMBERS];		// Defines array for character names. 0 is main character, 1-4 are crew members.
+int characterHP[CREW_MEMBERS] = { 10, 10, 10, 10, 10 };		// Defines amount of health for each character.
+int shipHP = 100;			// Defines ship's health.
 double money = 1000;		// Defines default starting money.
 int gameState = 1;			// Variable controlling progress of the game. Used for determining which function to return to.
 int dayNumber = 1;			// Variable controlling amount of days that have passed.
@@ -46,31 +56,29 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	srand(time(NULL));
 
-	displayStartup();
+	displayStartup();						// Displays opening text
 
-	cout << "What is your name?" << endl;
-	characters[0] = enterName();
+	getCrew();								// Gets crew member names
 
-	cout << "Enter your crew: " << endl;
-	cout << "1: ";
-	characters[1] = enterName();
-	cout << "2: ";
-	characters[2] = enterName();
-	cout << "3: ";
-	characters[3] = enterName();
-	cout << "4: ";
-	characters[4] = enterName();
-
-	startupMenu();
+	startupMenu();							// Displays text before the shops menu, then brings player to shops
 
 	system("cls");
-	cout << "You depart planet Earth, taking one last look at your favorite convenience store, knowing you'll never see it again.\n"
+	cout << "You depart planet Earth, taking one last look at your favorite convenience store, knowing you'll never see it again.\n"		// Displays text before leaving shops
 		<< "The road ahead will be a difficult one, with many dangerous events. Enjoy your journey!" << endl;
 	system("pause");
 
-	//Random Event 1
+	// Random Event 1
 	randomEvent();
 
+	// Random Event 2
+	randomEvent();
+
+	// Random Event 3
+	randomEvent();
+
+	system("cls");
+	displayHealth();
+	system("pause");
 	//Starting Area
 
 	//Random event check
@@ -118,6 +126,23 @@ void displayStartup()
 	cout << endl;
 }
 
+
+// This function gets input from the user for the names of the player and the crew members.
+void getCrew()
+{
+	cout << "What is your name?" << endl;
+	characters[0] = enterName();
+
+	cout << "Enter your crew: " << endl;
+	cout << "1: ";
+	characters[1] = enterName();
+	cout << "2: ";
+	characters[2] = enterName();
+	cout << "3: ";
+	characters[3] = enterName();
+	cout << "4: ";
+	characters[4] = enterName();
+}
 
 
 // This function will display the first menu in which users can select shops, etc.
@@ -677,7 +702,6 @@ void gunShop(double& currency)
 }
 
 
-
 // This function displays the menu for the first aid shop
 void firstAidShop(double& currency)
 {
@@ -817,6 +841,7 @@ void firstAidShop(double& currency)
 	}
 }
 
+
 // This function asks the user if they want to leave the shops.
 void stayOrLeave()
 {
@@ -838,6 +863,8 @@ void stayOrLeave()
 		cin >> stayOrLeave;
 	}
 }
+
+
 // This function asks the user to enter a name and returns it.
 string enterName()
 {
@@ -847,25 +874,54 @@ string enterName()
 	return name;
 }
 
+
+// This function activates and defines the ranges for random events
 void randomEvent()
 {
 	int eventNum = randomNumberGenerator();
 
 
-	if (eventNum > 0 || eventNum < 65) {
+	if (eventNum > 0 && eventNum < 22)
 		spaceRace();
-	}
+	else if (eventNum >= 22 && eventNum < 43)
+		zeroGravityIncident();
+	else if (eventNum >= 43 && eventNum < 65)
+		shipRepair();
+	
 }
+
+
+// This function displays the health of all crew members
+void displayHealth()
+{
+	cout << "Ship Health: " << shipHP << endl << endl;
+
+	for (int count = 0; count < CREW_MEMBERS; count++)											// Steps through character names array
+	{
+		if (characterHP[count] > 0)																// If character is alive
+			cout << characters[count] << "\t\t" << "HP: " << characterHP[count] << endl;
+		else                                                                                    // If character is dead
+			cout << characters[count] << " (DEAD)" << "\t\t" << "HP: " << characterHP[count] << endl;
+	}
+
+	cout << endl;
+}
+
 
 // In this random event, the player has the option of racing another ship for $100
 void spaceRace()
 {
-	char raceChoice = 0;
 	system("cls");
+
+	char raceChoice = 0;
+
+	displayHealth();
+
 	cout << "Another shuttle (with flames painted on it) pulls up next to you and" << endl;
 	cout << "challenges you to a race. He will give you 100 dollars if you win, but" << endl;
 	cout << "if you lose, you have to give him 100 dollars. (You have $" << money << ")" << endl;
 	cout << "Do you choose to race? (Y/N)" << endl;
+
 
 	cin >> raceChoice;
 
@@ -910,8 +966,57 @@ void spaceRace()
 		}
 	}
 	system("pause");
-	shopMenu(money);
 }
+
+
+// In this random event, a crew member is disoriented in zero gravity and bumps his/her head.
+void zeroGravityIncident()
+{
+	system("cls");
+
+	displayHealth();
+
+	int name = randomCharacter();		// Holds value of random character to use multiple times.
+
+	cout << characters[name] << " was disoriented in zero gravity and bumped his/her head.\n"
+		<< "What a sad way to lose 2 health." << endl;
+	
+	characterHP[name] -= 2;				// Decreases character's health by 2
+	
+	system("pause");
+}
+
+
+// In this random event, the ship malfunctions and you need to repair it or risk losing ship HP.
+void shipRepair()
+{
+	system("cls");
+
+	displayHealth();
+
+	cout << "Oh no! Your ship's electronics are malfunctioning. Luckily for you\n"
+		<< "the simple fix only requires 3 copper wire." << endl;
+
+	system("pause");
+
+	if (inventoryAmounts[7] >= 3)
+	{
+		cout << "3 of your copper wire is used to repair the ship and can once again listen to Rock 107!" << endl;
+		inventoryAmounts[7] -= 3;																// Decreases copper wire by 3 to fix ship.
+	}
+	else if (inventoryAmounts[7] < 3)
+	{
+		cout << "Unfortunately, you don't have enough copper wire to fix the ship\n"
+			<< "and you must now suffer the voyage without satelite radio." << endl;
+		cout << "...also your ship loses 8 health." << endl;
+
+		shipHP -= 8;				// Decreases ship HP by 8.
+	}
+
+	system("pause");
+
+}
+
 
 // This function generates a random number between 1 and 64
 int randomNumberGenerator()
@@ -919,6 +1024,15 @@ int randomNumberGenerator()
 	return rand() % 64 + 1;
 }
 
+
+// This function generates a random number from 0 to 4 for random character selection.
+int randomCharacter()
+{
+	return rand() % 5;
+}
+
+
+// This function displays the player's inventory
 void checkInventory()
 {
 	system("cls");
