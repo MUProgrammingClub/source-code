@@ -27,6 +27,7 @@ void checkInventory();
 void stayOrLeave();
 void displayHealth();
 void randomEvent();
+void borderCustoms();
 int randomCharacter();
 
 // Prototypes for specific random events
@@ -79,6 +80,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	system("cls");
 	displayHealth();
 	system("pause");
+  
+  //Leaving Earth
+  borderCustoms();
 	//Starting Area
 
 	//Random event check
@@ -968,6 +972,17 @@ void spaceRace()
 	system("pause");
 }
 
+void borderCustoms()
+{
+	system("cls");
+	int customsChoice = 0;
+
+	cout << "As you approach the border from Earth to interstellar space \n";
+	//maybe check if player bought weapons from shop before displaying this line?
+	cout << "A customs officer approaches your vehicle as your crew scrambles to hide your weapons \n";
+	cout << " \"Greetings fellas, how are we doing today?\" \n";
+	
+}
 
 // In this random event, a crew member is disoriented in zero gravity and bumps his/her head.
 void zeroGravityIncident()
