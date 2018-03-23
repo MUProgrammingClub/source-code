@@ -1,0 +1,23 @@
+function name
+{
+	const string characters[] = {"Cody", "Garrett", "Steve", "Rohan", "Chris"};
+
+	bool meatloaf = true; // check if player has meatloaf
+
+	if(!meatloaf) {
+		//recall randomEventFunction
+	}
+
+		
+	
+	else {
+		cout << "Looks like someone forgot to check the expiration date on their holographic meatloaf." << endl;
+		cout << characters[3] << " went to try and sneak in a midnight snack and ended up with holographic " << endl;
+		cout << "food poisoning." << endl;
+		cout << endl;
+		cout << characters[3] << " loses 1 health." << endl;
+		cout << "You also decide to throw out the rest of your holographic meatloaf." << endl;
+
+		//lower characters health by 1
+		//get rid of the meatloaf
+}
