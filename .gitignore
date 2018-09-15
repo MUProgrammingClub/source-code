@@ -1,0 +1,8 @@
+# Ignore .vs folder
+.vs/
+
+# Ignore Debug folder
+Debug/
+
+# Ignore Release folder
+Release/
