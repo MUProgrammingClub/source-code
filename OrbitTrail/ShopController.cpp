@@ -8,7 +8,7 @@ ShopController::ShopController()
 
 void* ShopController::getShop(ShopType type)
 {
-	switch (type) {
+	/*switch (type) {
 	case ShopType::GENERAL:
 		return ShopController::generalStore;
 		break;
@@ -30,7 +30,7 @@ void* ShopController::getShop(ShopType type)
 	default:
 		return nullptr;
 		break;
-	}
+	}*/
 }
 
 

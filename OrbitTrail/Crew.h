@@ -17,6 +17,7 @@ public:
 	void addAmount(unsigned int value);
 	void subtractAmount(unsigned int value);
 	void addMember(Person member);
+	// remove crew member
 	void listCrew();
 	void checkInventory();
 	~Crew();

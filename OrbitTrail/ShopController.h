@@ -19,4 +19,3 @@ public:
 	void* getShop(ShopType type);
 	~ShopController();
 };
-
