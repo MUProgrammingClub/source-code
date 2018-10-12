@@ -6,7 +6,7 @@ ShopController::ShopController()
 {
 }
 
-void* ShopController::getShop(ShopType type)
+void ShopController::getShop(ShopType type)
 {
 	/*switch (type) {
 	case ShopType::GENERAL:
