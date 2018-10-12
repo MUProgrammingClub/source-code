@@ -16,6 +16,6 @@ private:
 public:
 	enum ShopType { GENERAL, FOOD, PARTS, GUN, FIRSTAID, INV };
 	ShopController();
-	void* getShop(ShopType type);
+	void getShop(ShopType type);
 	~ShopController();
 };
