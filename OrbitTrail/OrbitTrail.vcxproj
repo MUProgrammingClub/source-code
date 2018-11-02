@@ -167,6 +167,7 @@
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopController.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Crew.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopController.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
