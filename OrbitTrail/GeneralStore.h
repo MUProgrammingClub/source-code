@@ -7,7 +7,7 @@ class GeneralStore : public Shop
 public:
 	GeneralStore();
 	void initializeShop();
-	virtual int getLongestStringSize();
+	int getLongestStringSize();
 	void displayShop();
 	~GeneralStore();
 };
