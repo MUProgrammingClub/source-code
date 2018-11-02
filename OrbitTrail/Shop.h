@@ -10,5 +10,6 @@ protected:
 public:
 	Shop();
 	virtual void initializeShop() = 0;
+	virtual int getLongestStringSize() = 0;
 	virtual ~Shop() = 0;
 };

@@ -28,6 +28,19 @@ void GeneralStore::initializeShop()
 	shopInventory.push_back(Item("First Ait Kit", 0.00));
 }
 
+int GeneralStore::getLongestStringSize()
+{
+	int longestSize = 0;
+
+	for (int x = 0; x < shopInventory.size(); x++)
+	{
+		if (shopInventory[x].getName().size() > longestSize)
+			longestSize = shopInventory[x].getName().size();
+	}
+
+	return longestSize;
+}
+
 void GeneralStore::displayShop()
 {
 	cout << "Welcome to the General Store! Make sure to buy all the supplies you need before heading out!" << endl << endl;
